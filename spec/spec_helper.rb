@@ -1,5 +1,5 @@
-require 'simplecov'
-SimpleCov.start
+# require 'simplecov'
+# SimpleCov.start
 
 require 'rspec'
 require 'rspec/autorun'
@@ -15,7 +15,7 @@ require 'mongoid'
 require_relative '../lib/mongoid_acts_as_list'
 
 Mongoid.configure do |config|
-  config.master = Mongo::Connection.new.db('acts_as_list_test')
+  config.connect_to("acts_as_list_test")
 end
 
 RSpec.configure do |config|

@@ -60,7 +60,8 @@ module Mongoid::ActsAsList
 
       def order_by_position(conditions = {}, order = :asc)
         order, conditions = [conditions || :asc, {}] unless conditions.is_a? Hash
-        where( conditions ).order_by [[position_field, order], [:created_at, order]]
+        raise "invalid order: #{order}" unless [ :asc, :desc ].include?(order)
+        where(conditions).send(order, position_field)
       end
 
     private
@@ -72,7 +73,7 @@ module Mongoid::ActsAsList
       def define_position_field(field_name)
         field field_name, type: Integer
 
-        set_callback :validation, :before, if: -> { new? && not_in_list? } do |doc|
+        set_callback :validation, :before, if: -> { new_record? && not_in_list? } do |doc|
           doc[field_name] = doc.send(:next_available_position_in_list)
         end
 
