@@ -14,12 +14,10 @@ end
 require 'mongoid'
 require_relative '../lib/mongoid_acts_as_list'
 
-if defined?(Moped)
-  Mongoid.configure do |config|
+Mongoid.configure do |config|
+  if defined?(Moped)
     config.connect_to("acts_as_list_test")
-  end
-else
-  Mongoid.configure do |config|
+  else
     config.master = Mongo::Connection.new.db('acts_as_list_test')
   end
 end
