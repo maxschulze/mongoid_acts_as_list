@@ -14,8 +14,14 @@ end
 require 'mongoid'
 require_relative '../lib/mongoid_acts_as_list'
 
-Mongoid.configure do |config|
-  config.connect_to("acts_as_list_test")
+if defined?(Moped)
+  Mongoid.configure do |config|
+    config.connect_to("acts_as_list_test")
+  end
+else
+  Mongoid.configure do |config|
+    config.master = Mongo::Connection.new.db('acts_as_list_test')
+  end
 end
 
 RSpec.configure do |config|

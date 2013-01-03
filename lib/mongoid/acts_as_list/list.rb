@@ -60,8 +60,8 @@ module Mongoid::ActsAsList
 
       def order_by_position(conditions = {}, order = :asc)
         order, conditions = [conditions || :asc, {}] unless conditions.is_a? Hash
-        raise "invalid order: #{order}" unless [ :asc, :desc ].include?(order)
-        where(conditions).send(order, position_field)
+        where( conditions ).order_by [[position_field, order], [:created_at, order]]
+        #where(conditions).send(order, position_field)
       end
 
     private
