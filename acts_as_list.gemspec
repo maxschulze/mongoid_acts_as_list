@@ -19,6 +19,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # specify any dependencies here; for example:
-  s.add_runtime_dependency "mongoid", ["~> 2.5.1"]
+  s.add_runtime_dependency "mongoid", [">= 2.5.1"]
   s.add_development_dependency "rake"
 end
